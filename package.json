@@ -1,173 +1,173 @@
 {
-	"name": "ollama-ai-assistant-ultimate",
-	"displayName": "Ollama AI Assistant Ultimate",
-	"description": "🚀 The world's most advanced AI extension for VSCode: Autonomous AI Agents, Multimodal Analysis, RAG, Security Scanner, Performance Profiler & more. 100% Local & Private!",
-	"version": "0.3.0",
-	"publisher": "codemastersolutions",
-	"author": {
-		"name": "Ollama AI Team",
-		"email": "support@ollama-ai-assistant.com",
-		"url": "https://ollama-ai-assistant.com"
-	},
-	"license": "MIT",
-	"homepage": "https://ollama-ai-assistant.com",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/codemastersolutions/ollama-ai-assistant-ultimate.git"
-	},
-	"bugs": {
-		"url": "https://github.com/codemastersolutions/ollama-ai-assistant-ultimate/issues",
-		"email": "support@ollama-ai-assistant.com"
-	},
-	"sponsor": {
-		"url": "https://github.com/sponsors/codemastersolutions"
-	},
-	"qna": "https://github.com/codemastersolutions/ollama-ai-assistant-ultimate/discussions",
-	"icon": "assets/icon.png",
-	"galleryBanner": {
-		"color": "#1e1e1e",
-		"theme": "dark"
-	},
-	"badges": [
-		{
-			"url": "https://img.shields.io/visual-studio-marketplace/v/codemastersolutions.ollama-ai-assistant-ultimate.svg",
-			"href": "https://marketplace.visualstudio.com/items?itemName=codemastersolutions.ollama-ai-assistant-ultimate",
-			"description": "Version"
-		},
-		{
-			"url": "https://img.shields.io/visual-studio-marketplace/d/codemastersolutions.ollama-ai-assistant-ultimate.svg",
-			"href": "https://marketplace.visualstudio.com/items?itemName=codemastersolutions.ollama-ai-assistant-ultimate",
-			"description": "Downloads"
-		},
-		{
-			"url": "https://img.shields.io/visual-studio-marketplace/r/codemastersolutions.ollama-ai-assistant-ultimate.svg",
-			"href": "https://marketplace.visualstudio.com/items?itemName=codemastersolutions.ollama-ai-assistant-ultimate",
-			"description": "Rating"
-		},
-		{
-			"url": "https://img.shields.io/github/stars/codemastersolutions/ollama-ai-assistant-ultimate.svg?style=social&label=Stars",
-			"href": "https://github.com/codemastersolutions/ollama-ai-assistant-ultimate",
-			"description": "GitHub Stars"
-		}
-	],
-	"keywords": [
-		"ai",
-		"assistant",
-		"ollama",
-		"artificial intelligence",
-		"machine learning",
-		"code completion",
-		"autocomplete",
-		"intellisense",
-		"copilot alternative",
-		"agents",
-		"autonomous",
-		"automation",
-		"workflow",
-		"multimodal",
-		"image analysis",
-		"vision",
-		"llava",
-		"rag",
-		"retrieval",
-		"knowledge base",
-		"semantic search",
-		"security",
-		"vulnerability",
-		"scanner",
-		"owasp",
-		"compliance",
-		"performance",
-		"profiler",
-		"optimization",
-		"big o",
-		"database",
-		"sql",
-		"query",
-		"generation",
-		"migration",
-		"framework",
-		"modernization",
-		"legacy",
-		"testing",
-		"test generation",
-		"unit tests",
-		"tdd",
-		"documentation",
-		"docs",
-		"jsdoc",
-		"sphinx",
-		"code review",
-		"quality",
-		"best practices",
-		"refactoring",
-		"local",
-		"private",
-		"offline",
-		"on-premise",
-		"enterprise",
-		"free",
-		"open source",
-		"typescript",
-		"javascript",
-		"python",
-		"java"
-	],
-	"engines": {
-		"vscode": "^1.74.0",
-		"node": ">=16.0.0"
-	},
-	"categories": [
-		"Other",
-		"Machine Learning",
-		"Programming Languages",
-		"Snippets",
-		"Testing",
-		"Linters",
-		"Debuggers",
-		"Education",
-		"Data Science"
-	],
-	"pricing": "Free",
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts --fix",
-		"test": "node ./out/test/runTest.js",
-		"package": "vsce package",
-		"publish:marketplace": "vsce publish",
-		"publish:openvsx": "ovsx publish",
-		"publish:all": "npm run publish:marketplace && npm run publish:openvsx",
-		"version:patch": "npm version patch && git push --tags",
-		"version:minor": "npm version minor && git push --tags",
-		"version:major": "npm version major && git push --tags",
-		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-		"release": "npm run changelog && npm run package && npm run publish:all"
-	},
-	"devDependencies": {
-		"@eslint/css": "^0.11.1",
-		"@eslint/js": "^9.36.0",
-		"@eslint/json": "^0.13.2",
-		"@eslint/markdown": "^7.3.0",
-		"@types/mocha": "^10.0.1",
-		"@types/node": "16.x",
-		"@types/vscode": "^1.74.0",
-		"@typescript-eslint/eslint-plugin": "^5.62.0",
-		"@typescript-eslint/parser": "^5.62.0",
-		"@vscode/test-electron": "^2.2.0",
-		"@vscode/vsce": "^2.22.0",
-		"conventional-changelog-cli": "^2.2.2",
-		"eslint": "^8.57.1",
-		"globals": "^16.4.0",
-		"mocha": "^10.1.0",
-		"ovsx": "^0.8.3",
-		"typescript": "^4.9.4",
-		"typescript-eslint": "^8.45.0"
-	},
-	"dependencies": {
-		"node-fetch": "^3.3.2",
-		"ollama": "^0.5.9"
-	}
+  "name": "ollama-ai-assistant-ultimate",
+  "displayName": "Ollama AI Assistant Ultimate",
+  "description": "🚀 The world's most advanced AI extension for VSCode: Autonomous AI Agents, Multimodal Analysis, RAG, Security Scanner, Performance Profiler & more. 100% Local & Private!",
+  "version": "0.3.0",
+  "publisher": "codemastersolutions",
+  "author": {
+    "name": "Ollama AI Team",
+    "email": "support@ollama-ai-assistant.com",
+    "url": "https://ollama-ai-assistant.com"
+  },
+  "license": "MIT",
+  "homepage": "https://ollama-ai-assistant.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codemastersolutions/ollama-ai-assistant-ultimate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/codemastersolutions/ollama-ai-assistant-ultimate/issues",
+    "email": "support@ollama-ai-assistant.com"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/codemastersolutions"
+  },
+  "qna": "https://github.com/codemastersolutions/ollama-ai-assistant-ultimate/discussions",
+  "icon": "assets/icon.png",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "badges": [
+    {
+      "url": "https://img.shields.io/visual-studio-marketplace/v/codemastersolutions.ollama-ai-assistant-ultimate.svg",
+      "href": "https://marketplace.visualstudio.com/items?itemName=codemastersolutions.ollama-ai-assistant-ultimate",
+      "description": "Version"
+    },
+    {
+      "url": "https://img.shields.io/visual-studio-marketplace/d/codemastersolutions.ollama-ai-assistant-ultimate.svg",
+      "href": "https://marketplace.visualstudio.com/items?itemName=codemastersolutions.ollama-ai-assistant-ultimate",
+      "description": "Downloads"
+    },
+    {
+      "url": "https://img.shields.io/visual-studio-marketplace/r/codemastersolutions.ollama-ai-assistant-ultimate.svg",
+      "href": "https://marketplace.visualstudio.com/items?itemName=codemastersolutions.ollama-ai-assistant-ultimate",
+      "description": "Rating"
+    },
+    {
+      "url": "https://img.shields.io/github/stars/codemastersolutions/ollama-ai-assistant-ultimate.svg?style=social&label=Stars",
+      "href": "https://github.com/codemastersolutions/ollama-ai-assistant-ultimate",
+      "description": "GitHub Stars"
+    }
+  ],
+  "keywords": [
+    "ai",
+    "assistant",
+    "ollama",
+    "artificial intelligence",
+    "machine learning",
+    "code completion",
+    "autocomplete",
+    "intellisense",
+    "copilot alternative",
+    "agents",
+    "autonomous",
+    "automation",
+    "workflow",
+    "multimodal",
+    "image analysis",
+    "vision",
+    "llava",
+    "rag",
+    "retrieval",
+    "knowledge base",
+    "semantic search",
+    "security",
+    "vulnerability",
+    "scanner",
+    "owasp",
+    "compliance",
+    "performance",
+    "profiler",
+    "optimization",
+    "big o",
+    "database",
+    "sql",
+    "query",
+    "generation",
+    "migration",
+    "framework",
+    "modernization",
+    "legacy",
+    "testing",
+    "test generation",
+    "unit tests",
+    "tdd",
+    "documentation",
+    "docs",
+    "jsdoc",
+    "sphinx",
+    "code review",
+    "quality",
+    "best practices",
+    "refactoring",
+    "local",
+    "private",
+    "offline",
+    "on-premise",
+    "enterprise",
+    "free",
+    "open source",
+    "typescript",
+    "javascript",
+    "python",
+    "java"
+  ],
+  "engines": {
+    "vscode": "^1.74.0",
+    "node": ">=16.0.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "Programming Languages",
+    "Snippets",
+    "Testing",
+    "Linters",
+    "Debuggers",
+    "Education",
+    "Data Science"
+  ],
+  "pricing": "Free",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --fix",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish:marketplace": "vsce publish",
+    "publish:openvsx": "ovsx publish",
+    "publish:all": "npm run publish:marketplace && npm run publish:openvsx",
+    "version:patch": "npm version patch && git push --tags",
+    "version:minor": "npm version minor && git push --tags",
+    "version:major": "npm version major && git push --tags",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "release": "npm run changelog && npm run package && npm run publish:all"
+  },
+  "devDependencies": {
+    "@eslint/css": "^0.11.1",
+    "@eslint/js": "^9.36.0",
+    "@eslint/json": "^0.13.2",
+    "@eslint/markdown": "^7.3.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "@vscode/test-electron": "^2.2.0",
+    "@vscode/vsce": "^2.22.0",
+    "conventional-changelog-cli": "^2.2.2",
+    "eslint": "^8.57.1",
+    "globals": "^16.4.0",
+    "mocha": "^10.1.0",
+    "ovsx": "^0.8.3",
+    "typescript": "^4.9.4",
+    "typescript-eslint": "^8.45.0"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "ollama": "^0.5.9"
+  }
 }
