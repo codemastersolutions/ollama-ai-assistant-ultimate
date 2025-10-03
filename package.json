@@ -147,21 +147,27 @@
 		"release": "npm run changelog && npm run package && npm run publish:all"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.74.0",
-		"@types/node": "16.x",
+		"@eslint/css": "^0.11.1",
+		"@eslint/js": "^9.36.0",
+		"@eslint/json": "^0.13.2",
+		"@eslint/markdown": "^7.3.0",
 		"@types/mocha": "^10.0.1",
-		"@typescript-eslint/eslint-plugin": "^5.45.0",
-		"@typescript-eslint/parser": "^5.45.0",
-		"eslint": "^8.28.0",
-		"mocha": "^10.1.0",
-		"typescript": "^4.9.4",
+		"@types/node": "16.x",
+		"@types/vscode": "^1.74.0",
+		"@typescript-eslint/eslint-plugin": "^5.62.0",
+		"@typescript-eslint/parser": "^5.62.0",
 		"@vscode/test-electron": "^2.2.0",
 		"@vscode/vsce": "^2.22.0",
+		"conventional-changelog-cli": "^2.2.2",
+		"eslint": "^8.57.1",
+		"globals": "^16.4.0",
+		"mocha": "^10.1.0",
 		"ovsx": "^0.8.3",
-		"conventional-changelog-cli": "^2.2.2"
+		"typescript": "^4.9.4",
+		"typescript-eslint": "^8.45.0"
 	},
 	"dependencies": {
-		"ollama": "^0.5.9",
-		"node-fetch": "^3.3.2"
+		"node-fetch": "^3.3.2",
+		"ollama": "^0.5.9"
 	}
 }
