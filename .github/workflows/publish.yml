@@ -1,0 +1,218 @@
+name: 🚀 Build, Test & Publish Extension
+
+on:
+  push:
+    branches: [main, develop]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  # Job 1: Build and Test
+  test:
+    name: 🧪 Test Extension
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        vscode-version: ['1.74.0', 'stable']
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: npm ci
+
+      - name: 🔍 Lint Code
+        run: npm run lint
+
+      - name: 🏗️ Compile TypeScript
+        run: npm run compile
+
+      - name: 🧪 Run Tests
+        run: |
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          npm test
+        env:
+          VSCODE_VERSION: ${{ matrix.vscode-version }}
+
+      - name: 📊 Upload Test Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-results-${{ matrix.vscode-version }}
+          path: |
+            coverage/
+            test-results.xml
+
+  # Job 2: Security Scan
+  security:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🔍 Run Security Scan
+        uses: securecodewarrior/github-action-add-sarif@v1
+        with:
+          sarif-file: 'security-scan.sarif'
+
+      - name: 📦 Audit Dependencies
+        run: |
+          npm audit --audit-level high
+          npm audit fix --dry-run
+
+  # Job 3: Package Extension
+  package:
+    name: 📦 Package Extension
+    runs-on: ubuntu-latest
+    needs: [test, security]
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: npm ci
+
+      - name: 🏗️ Build Extension
+        run: npm run compile
+
+      - name: 📦 Package VSIX
+        run: npm run package
+
+      - name: 📊 Upload VSIX Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: vsix-package
+          path: '*.vsix'
+          retention-days: 30
+
+      - name: 📋 Generate Release Notes
+        id: release-notes
+        run: |
+          if [ "${{ github.event_name }}" = "push" ] && [[ "${{ github.ref }}" =~ ^refs/tags/v ]]; then
+            VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\/v//')
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+            # Generate changelog for this version
+            npm run changelog
+
+            # Extract release notes for current version
+            RELEASE_NOTES=$(sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | head -n -1)
+            echo "release-notes<<EOF" >> $GITHUB_OUTPUT
+            echo "$RELEASE_NOTES" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+  # Job 4: Publish to Marketplaces (only on tags)
+  publish:
+    name: 🚀 Publish to Marketplaces
+    runs-on: ubuntu-latest
+    needs: [package]
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    environment: production
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: npm ci
+
+      - name: 📥 Download VSIX Package
+        uses: actions/download-artifact@v3
+        with:
+          name: vsix-package
+
+      - name: 🏪 Publish to VS Code Marketplace
+        run: npm run publish:marketplace
+        env:
+          VSCE_PAT: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
+
+      - name: 🌐 Publish to Open VSX Registry
+        run: npm run publish:openvsx
+        env:
+          OVSX_PAT: ${{ secrets.OPENVSX_TOKEN }}
+
+      - name: 📋 Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: '*.vsix'
+          body: ${{ needs.package.outputs.release-notes }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Job 5: Update Documentation
+  docs:
+    name: 📚 Update Documentation
+    runs-on: ubuntu-latest
+    needs: [publish]
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 🔄 Update README Badges
+        run: |
+          VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\/v//')
+          sed -i "s/version-[0-9]\+\.[0-9]\+\.[0-9]\+/version-$VERSION/g" README.md
+
+      - name: 📤 Commit Documentation Updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git diff --staged --quiet || git commit -m "docs: Update badges for version $VERSION [skip ci]"
+          git push
+
+  # Job 6: Notify Success
+  notify:
+    name: 📢 Notify Success
+    runs-on: ubuntu-latest
+    needs: [publish, docs]
+    if: success()
+
+    steps:
+      - name: 🎉 Success Notification
+        run: |
+          VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\/v//')
+          echo "🎉 Successfully published Ollama AI Assistant Ultimate v$VERSION to both marketplaces!"
+          echo "📊 Marketplace: https://marketplace.visualstudio.com/items?itemName=codemastersolutions.ollama-ai-assistant-ultimate"
+          echo "🌐 Open VSX: https://open-vsx.org/extension/codemastersolutions/ollama-ai-assistant-ultimate"

@@ -1,0 +1,5 @@
+{
+  "registryUrl": "https://open-vsx.org",
+  "pat": "$OVSX_PAT",
+  "packagePath": "*.vsix"
+}

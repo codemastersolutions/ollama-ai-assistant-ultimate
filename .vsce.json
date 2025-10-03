@@ -1,0 +1,21 @@
+{
+	"publisher": "codemastersolutions",
+	"personalAccessToken": "$VSCE_PAT",
+	"useYarn": false,
+	"dependencies": true,
+	"packagedDependencies": ["ollama", "node-fetch"],
+	"ignore": [
+		"src/**",
+		"**/*.ts",
+		"**/*.map",
+		".vscode/**",
+		".vscode-test/**",
+		"node_modules/**/.bin/**",
+		"**/*.vsix",
+		"coverage/**",
+		"test/**",
+		".github/**",
+		"*.log",
+		"**/*.tsbuildinfo"
+	]
+}
