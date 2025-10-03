@@ -65,10 +65,18 @@ jobs:
       - name: 📥 Checkout Code
         uses: actions/checkout@v4
 
-      - name: 🔍 Run Security Scan
-        uses: securecodewarrior/github-action-add-sarif@v1
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
         with:
-          sarif-file: 'security-scan.sarif'
+          languages: javascript
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: '/language:javascript'
 
       - name: 📦 Audit Dependencies
         run: |
